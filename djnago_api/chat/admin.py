@@ -1,8 +1,12 @@
 from django.contrib import admin
-from .models import ChatMessage
+from .models import Room, Message
 
-@admin.register(ChatMessage)
-class ChatMessageAdmin(admin.ModelAdmin):
-    list_display = ["sender", "message", "timestamp"]
-    search_fields = ["sender__username", "message"]
-    ordering = ["-timestamp"]
+@admin.register(Room)
+class RoomAdmin(admin.ModelAdmin):
+    list_display = ('id', 'room_name')
+    search_fields = ('room_name',)
+
+@admin.register(Message)
+class MessageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'room', 'sender', 'message')
+    search_fields = ('room__room_name', 'sender')
